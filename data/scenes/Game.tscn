@@ -1,0 +1,102 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scenes/Hearts.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/RichTextLabel.gd" type="Script" id=3]
+[ext_resource path="res://data/scenes/Game.gd" type="Script" id=4]
+[ext_resource path="res://data/sprites/evil2.png" type="Texture" id=5]
+[ext_resource path="res://scripts/Enemy.gd" type="Script" id=7]
+[ext_resource path="res://data/sprites/healthbar.png" type="Texture" id=8]
+
+[sub_resource type="DynamicFontData" id=1]
+antialiased = false
+font_path = "res://data/fonts/FFFFORWA.TTF"
+
+[sub_resource type="DynamicFont" id=2]
+size = 8
+font_data = SubResource( 1 )
+
+[sub_resource type="Theme" id=3]
+default_font = SubResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.45098, 0.180392, 0.180392, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 1, 1, 1, 1 )
+
+[node name="Node" type="Node"]
+script = ExtResource( 4 )
+
+[node name="UI" type="Control" parent="."]
+margin_right = 84.0
+margin_bottom = 48.0
+theme = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Enemy" type="Sprite" parent="UI"]
+position = Vector2( 44, 11.0625 )
+z_index = 3
+z_as_relative = false
+texture = ExtResource( 5 )
+script = ExtResource( 7 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Enemy"]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = -42.0
+margin_top = 17.0
+margin_right = 40.0
+margin_bottom = 40.0
+bbcode_enabled = true
+bbcode_text = "[shake rate=10 level=7]Wake up![/shake]"
+text = "Wake up!"
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="UI/Enemy"]
+visible = false
+position = Vector2( -2, -8 )
+scale = Vector2( 0.95, 1 )
+z_index = 2
+z_as_relative = false
+texture = ExtResource( 8 )
+
+[node name="HealthBar" type="ProgressBar" parent="UI/Enemy/Sprite"]
+show_behind_parent = true
+use_parent_material = true
+margin_left = -41.0
+margin_top = -2.0
+margin_right = 41.0
+margin_bottom = 2.0
+custom_styles/fg = SubResource( 4 )
+custom_styles/bg = SubResource( 5 )
+value = 100.0
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hearts" parent="." instance=ExtResource( 1 )]
+visible = false
+position = Vector2( 78, 39 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+margin_left = -0.0490112
+margin_top = -0.0490074
+margin_right = 83.951
+margin_bottom = 47.951
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 84, 48 )
+own_world = true
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Spatial" type="Spatial" parent="ViewportContainer/Viewport"]

@@ -32,7 +32,9 @@ func _draw():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	radius += 1
+	radius += 1	
+	self.get_child(0).shape.radius = radius + (5/2)
+	print(self.get_child(0).shape.radius)
 	if(last_white + 10 == radius): 
 		color = Color(0,0,0)
 	elif(radius % multiplier == 0): 
@@ -41,7 +43,7 @@ func _process(delta):
 	if(radius > 84):
 		self.free()
 	else:
-		update()
+		update()	
 	pass
 
 func draw_circle_arc(center, radius, angle_from, angle_to, color):

@@ -9,16 +9,13 @@ var _velocity:Vector2 = Vector2()
 func _ready() -> void:
 	_original_position = position
 	self.z_as_relative = false
-	self.z_index = 1
+	self.z_index = 0
 
 
-#func _process(delta: float) -> void:
-#	_velocity.y -= 60.0 * delta
-#	_position += _velocity * delta
-#	if _position.y < 0:
-#		_velocity.y -= _position.y
-#		_position.y = 0.0
-#	position = _original_position - _position
+func _process(delta: float) -> void:
+	if($RayCast2D.is_colliding()):
+		print("Ayy")
+		
 
 
 func _input(event: InputEvent) -> void:
